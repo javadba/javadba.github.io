@@ -1,0 +1,25 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "description": "Drag out a rectangular brush to highlight points.",
+  "data": {
+    "url": "data/movies.json"
+  },
+  "selection": {
+    "brush": {
+      "type": "interval"
+    }
+  },
+  "mark": "point",
+  "encoding": {
+    "x": {
+      "field": "Rotten_Tomatoes_Rating",
+      "type": "quantitative"
+    },
+    "y": {
+      "field": "US_Gross",
+      "type": "quantitative"
+    }
+
+  }
+
+}

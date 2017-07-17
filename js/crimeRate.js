@@ -783,7 +783,7 @@ var processDiseaseData = function(err,data) {
   makeMap2("#map2-svg", MAP2_TITLE);
   makeBar2(".chart2", "California");
 
-}
+};
 
 d3.csv("/data/PovertyEstimates.csv", processPovertyData);
 
@@ -811,3 +811,8 @@ for (i = 0; i < acc.length; i++) {
         }
     }
 }
+
+include('d3-tip.js');
+include('stateCrimeRate.js');
+include('countyCrimeRate.js');
+

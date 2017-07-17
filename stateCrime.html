@@ -1,0 +1,64 @@
+<div w3-include-html="header.html"></div>
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<script>
+w3.includeHTML();
+</script>
+<script>
+function bottomNav(arr) {
+
+    var out =
+        `<div class="container">
+        <div class="col-lg-2 text-left">
+            <a href="${arr[0][0]}">
+                <button type="button" class="btn btn-default btn-small btn-success">
+                    ${arr[0][1]}<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                </button>
+            </a>
+
+        </div>
+        <div class="col-lg-8 text-center">
+            <a href="${arr[1][0]}">
+                <button type="button" class="btn btn-default btn-small btn-success">
+                    ${arr[1][1]}<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                </button>
+            </a>
+        </div>
+
+        <div class="col-lg-2 text-right">
+            <a href="${arr[2][0]}">
+                <button type="button" class="btn btn-default btn-small btn-success">
+                    ${arr[2][1]}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </button>
+            </a>
+        </div>
+    </div>`
+    return out;
+}
+</script>
+
+
+    <!-- Begin page content -->
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>State Crime Rates</h1>
+        </div>
+
+        <p class="lead">State Crime Rates
+
+
+        <div class="container" id="vegaChart">
+
+            <div class="secondVis" id="secondVis">
+
+            </div>
+        </div>
+
+    <script>
+        document.write(bottomNav([['crmain.html', 'Home'], ['crmain.html', 'Main'], ['countyCrime.html', 'County Crime']]));
+    </script>
+
+    </div><!-- /.container -->
+
+<div w3-include-html="footer.html"></div>
