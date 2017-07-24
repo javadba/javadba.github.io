@@ -114,10 +114,11 @@ function bottomNav(arr) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.4.2/vega-tooltip.min.js"></script>
 
   <script>
+      var opts = {"actions": false};
     const spec = "stateCrime.vl.json";
-  	vega.embed('#stateCrime', spec);
+  	vega.embed('#stateCrime', spec, opts);
     const countySpec = "countyCrime.vl.json";
-  	vega.embed('#countyCrime', countySpec);
+  	vega.embed('#countyCrime', countySpec, opts);
   </script>
 
 <script>
