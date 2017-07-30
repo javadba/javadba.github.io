@@ -38,67 +38,60 @@ function bottomNav(arr) {
 }
 </script>
 
-
-    <xmp theme="united" style="display:none;">
-##        Crime Rate vs Population
-## by County in the United States (2012)
-
-### Problem Statement and Question Asked
-
-The FBI compiles annual county level crime statistics bucketed into 45 categories
-
-This workbook explores the relationship between Total Violent Crimes - defined as the sum of Murder, Rape, Robbery, and Aggravated Assault - and the County Population.  The intuition we seek is: "Does a higher population density lead to a higher per-capita crime rate? And also "Which population centers have achieved a relatively lower per-capita crime rate?
-
-### Approach
-
-We approach the visualization by using a chloropeth map with the intensity representing the county-population-normalized crime rate.  A second trio of visualizations breaks out the comparisons on a Rural vs Average vs Urban areas  : we then have a perspective that tends towards *Regional* distinctions in crime rate.
-
-### Data Preparation:
-
-The FBI data may be accessed (after agreeing to various terms of use) at https://www.ojjdp.gov/ojstatbb/ezaucr/asp/methods.asp  and http://www.icpsr.umich.edu/cgi-bin/terms .  The data itself is incomplete: not all counties - or even all states - have provided data to support the FBI's report.  When the Total Crimes reported for a county are Zero then the data is excluded from analysis and the County is grayed out.
-
-The data was processed by using pandasql to achieve:
-
- - selecting only the necessary columns
- - normalizing the crime figures for the population value
- - creating buckets for the county population size and the crime rate as follows:
-
-    Population buckets:
-    -    1   <  50000
-    -    2   < 100000
-    -    3   < 400000
-    -    4   >= 400000
-
-    Crime Rate Buckets: (Mean - 125)
-    -    0   0 ( no crimes reported or no statistics available)
-    -    1   < 40
-    -    2   < 65
-    -    3   < 125
-    -    4   < 320
-    -    5   >= 320
-
-### Chart Preparation
-
-The Crime Data was matched with existing US County Map by the FIS State/County codes. Tableau has built in Lat/Long tracking support to enable the interactive exploration by the User.
-
-### Results and Analysis
-
-Having prior knowledge of the general trends I was expecting to see a higher crime rate in the SouthEast and lower in the Upper Midwest, Plains States, and upper NorthEast.  In addition New York City is well known for its sterling crime record whereas Chicago, Saint Louis, and New Orleans have the opposite reputation.  The results do corroborate those "apriori" known facts.
-
-### Some additional observations:
-
-    Overall the rural areas do fare better than urban ones. But the "Average" areas tend to have the best of the three categories
-
-    </xmp>
-
 <div class="container">
 
     <div class="page-header" style="display:none">
         <h3>US Crime Rate</h3>
     </div>
     <div class="container">
+        <div class="col-lg-6">
+            <h4 class="text-center">US Crime Rate</h4>
+            <div id="map1-svg"></div>
+        </div>
+        <div class="col-lg-6">
+            <h4 class="text-center">County Population Density</h4>
+            <div id="map2-svg"></div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="col-lg-6">
+
+            <h4 class="text-center" id="barTitle1">US Crime Rate by State</h4>
+            <div class="container">
+                <div class="col-lg-2">
+                    <svg class="svgBar" width="300" height="360">
+                    </svg>
+                </div>
+
+                <div class="col-lg-4">
+                    <!--<div class="chart1" id="stateCrime">-->
+                    <div id="stateCrime">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h4 class="text-center" id="barTitle2">US Crime Rate By County</h4>
+            <div class="container">
+                <div class="col-lg-4">
+                    <!--<div class="chart2" id="countyCrime">-->
+                    <div id="countyCrime">
+
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <svg class="svgBar2" width="300" height="360">
+
+                    </svg>
+                </div>
+
+            </div>
 
 
+        </div>
     </div>
     <script>
         var out = bottomNav([['crmain.html', 'Home'], ['countyCrime.html', 'Prev'], ['stateCrime.html', 'Next']]);
@@ -181,8 +174,4 @@ Having prior knowledge of the general trends I was expecting to see a higher cri
   </script>
 
 
-<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
-
 <div w3-include-html="footer.html"></div>
-
-

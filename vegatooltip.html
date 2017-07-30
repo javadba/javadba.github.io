@@ -1,0 +1,127 @@
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.3/vega-lite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-beta.31/vega.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.14/vega-embed.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.css"></link>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.js"></script>
+</head>
+
+<body>
+  <div id="vis-scatter"></div>
+  <div id="stateCrime"></div>
+  <div id="countyCrime"></div>
+  <script>
+    var vlSpec = {
+  		"$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  		"data": {"url": "https://raw.githubusercontent.com/vega/vega-datasets/gh-pages/data/cars.json"},
+  		"mark": "circle",
+  		"encoding": {
+    		"x": {"field": "Horsepower", "type": "quantitative"},
+    		"y": {"field": "Miles_per_Gallon", "type": "quantitative"}
+  		}
+		};
+
+    var opt = {
+      mode: "vega-lite",
+      actions: false
+    };
+    vega.embed("#vis-scatter", vlSpec, opt, function (error, result) {
+      var tooltipOption = {
+    		showAllFields: false,
+    		fields: [
+      		{ field: "Name" },
+      		{ field: "Horsepower" },
+      		{ field: "Miles_per_Gallon", title: "Miles per Gallon" }
+    		]
+  		};
+      vegaTooltip.vegaLite(result.view, vlSpec, tooltipOption);
+    });
+  </script>
+
+  <script>
+    var opt = {
+      mode: "vega-lite",
+      actions: false
+    };
+//      var opts = {"actions": false};
+
+//    const stateSpec = "stateCrime.vl.json";
+    const stateSpec = { "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+          "description": "Drag out a rectangular brush to highlight points.",
+          "data": {
+            "url": "data/combinedData.json"
+          },
+          "selection": {
+            "brush": {
+              "type": "interval"
+            }
+          },
+          "mark": "point",
+          "encoding": {
+            "x": {
+              "field": "state_pop_density",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "state_crime_rate",
+              "type": "quantitative"
+            }
+
+          } };
+
+//    vega.embed('#stateCrime', stateSpec, opts);
+
+    vega.embed("#stateCrime", stateSpec, opt, function (error, result) {
+        console.log(error);
+      var tooltipOption = {
+    		showAllFields: false,
+    		fields: [
+      		{ field: "state_pop_density",title: "State Population Density" },
+      		{ field: "state_crime_rate",title: "State Crime Rate"}
+    		]
+  		};
+      vegaTooltip.vegaLite(result.view, stateSpec, tooltipOption);
+    });
+
+//    const countySpec = "countyCrime.vl.json";
+    const countySpec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+          "description": "Drag out a rectangular brush to highlight points.",
+          "data": {
+            "url": "data/combinedData.json"
+          },
+          "selection": {
+            "brush": {
+              "type": "interval"
+            }
+          },
+          "mark": "point",
+          "encoding": {
+            "x": {
+              "field": "county_pop_density",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "county_crime_rate",
+              "type": "quantitative"
+            }
+          } };
+
+//    vega.embed('#countyCrime', countySpec, opts);
+
+    vega.embed("#countyCrime", countySpec, opt, function (error, result) {
+        console.log(error);
+      var tooltipOption = {
+    		showAllFields: false,
+    		fields: [
+      		{ field: "county_pop_density",title: "County Population Density" },
+      		{ field: "county_crime_rate",title: "County Crime Rate"}
+    		]
+  		};
+      vegaTooltip.vegaLite(result.view, countySpec, tooltipOption);
+    });
+
+  </script>
+
+</body>

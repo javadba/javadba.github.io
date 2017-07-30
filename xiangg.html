@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<head>
+
+  <meta charset="utf-8">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.3/vega-lite.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-beta.31/vega.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.14/vega-embed.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.css"></link>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.js"></script>
+
+</head>
+
+
+
+<body>
+
+  <div id="vis-scatter"></div>
+
+  <script>
+
+    var vlSpec =
+
+{
+
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+
+  "data": {"url": "https://raw.githubusercontent.com/guixiang123123/guixiang123123.github.io/master/Salary_data_1.csv" },
+
+  "vconcat": [
+
+
+
+    {
+
+    "width": 480,
+
+    "height": 200,
+
+    "mark": "line",
+
+    "selection": {
+
+      "brush": {"type": "interval", "encodings": ["x"]}
+
+    },
+
+    "encoding": {
+
+      "text": "hsis",
+
+      "x": {
+
+      "timeUnit": "yearmonthday",
+
+      "field": "DECISION_DATE",
+
+      "type": "temporal",
+
+        "axis": {"format": "%Y", "labelAngle": 0, "title": "date"}
+
+      },
+
+      "y": {
+
+      "aggregate": "count",
+
+      "field": "*",
+
+      "type": "quantitative",
+
+        "axis": {"tickCount": 3, "grid": false}
+
+      }
+
+
+
+    }
+
+  },
+
+
+
+  {
+
+    "width": 480,
+
+    "mark": "line",
+
+    "encoding": {
+
+      "x": {
+
+      "timeUnit": "yearmonth",
+
+      "field": "DECISION_DATE",
+
+      "type": "temporal",
+
+        "scale": {"domain": {"selection": "brush"}},
+
+        "axis": {"title": "", "labelAngle": 0,"title": "date"}
+
+      },
+
+      "y": {
+
+      "aggregate": "count",
+
+      "field": "*",
+
+      "type": "quantitative"
+
+        },
+
+            "color": {
+
+      "field": "JOB_TITLE_SUBGROUP",
+
+      "type": "nominal",
+
+      "legend": { "title":"Job title"}
+
+    }
+
+    }
+
+  },
+
+
+
+{
+
+"width": 480,
+
+"mark": "area",
+
+  "encoding": {
+
+    "x": {
+
+      "timeUnit": "yearmonth", "field": "DECISION_DATE", "type": "temporal",
+
+      "scale": {"nice": "month"},
+
+      "scale": {"domain": {"selection": "brush"}},
+
+      "axis": {"domain": false, "format": "%Y", "labelAngle": 0, "tickSize": 0,"title": "date"}
+
+    },
+
+    "y": {
+
+      "aggregate": "count", "field": "*","type": "quantitative",
+
+      "axis": null,
+
+      "stack": "normalize",
+
+      "axis":{"title": "Normalized percentage"}
+
+    },
+
+    "color": {"field":"JOB_TITLE_SUBGROUP", "type":"nominal", "legend": { "title":"Job title"}}
+
+  }
+
+}
+
+
+
+]
+
+}
+
+
+
+
+
+    var opt = {
+
+      mode: "vega-lite",
+
+      actions: false
+
+    };
+
+    vega.embed("#vis-scatter", vlSpec, opt, function (error, result) {
+
+      var tooltipOption = {
+
+        showAllFields: false,
+
+        fields: [
+
+          { field: "JOB_TITLE_SUBGROUP" },
+
+          { field: "DECISION_DATE" },
+
+          { field: "CASE_NUMBER", title: "Applicant information" }
+
+        ]
+
+      };
+
+      vegaTooltip.vegaLite(result.view, vlSpec, tooltipOption);
+
+    });
+
+  </script>
+
+</body>
+
+</html>\
