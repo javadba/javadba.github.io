@@ -35,14 +35,9 @@
         return out;
     }
 </script>
-<script>
-    document.write(bottomNav([['crmain.html', 'Home'], ['crmain.html', 'Main'], ['countyCrime.html', 'County Crime']]));
-</script>
-<div w3-include-html="footer.html"></div>
-
 <xmp theme="united" style="display:none;">
 
-## 2. State Crime.
+## 3. State Level Crime Details
 
 We can consider the State Crime Rate and the State Total Crimes as a function of:
 
@@ -52,6 +47,10 @@ We can consider the State Crime Rate and the State Total Crimes as a function of
  | State Area| "Do large/(/small) *population* states have high(/low) crime rates?"        |
  | State Population Density | "Do *densely* populated states -i.e. more urban areas have high(/low) crime rates?"|
  |                          | "Do *lightly* populated states -i.e. rural areas have high(/low) crime rates?"|
+
+Notes:
+
+- **The charts may take 5-15 seconds to load**: there is significant data.
 
 </xmp>
 <div class="container">
@@ -139,4 +138,10 @@ We can consider the State Crime Rate and the State Total Crimes as a function of
 
 
 <script src="strapdown.js"></script>
+
+<script>
+    document.write(bottomNav([['crmain.html','Overview'], ['stateBar.html','State Crime Overview'], ['stateBarCountyScatter.html','Combined State and County Summary']]));
+// [['crmain.html','Overview'], ['stateBar.html','State Crime Overview'],['stateCrime.html','State Crime Details'],['stateBarCountyScatter.html','Combined State and County Overview'],['countyCrime.html','County Crime Overview'],['countyBar.html','County Crime Exploration']]
+</script>
+<div w3-include-html="footer.html"></div>
 

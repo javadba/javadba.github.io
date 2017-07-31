@@ -35,24 +35,23 @@
         return out;
     }
 </script>
-<script>
-    document.write(bottomNav([['crmain.html', 'Home'], ['stateCrime.html', 'State Crime'], ['usMap.html', 'Country Map']]));
-</script>
-<div w3-include-html="footer.html"></div>
-
 <xmp theme="united" style="display:none;">
 
 
-  ## 2. County Crime.
+## 5. County Level Crime Details
 
-  We can consider the County Crime Rate and the County Total Crimes as a function of:
+We can consider the County Crime Rate and the County Total Crimes as a function of:
 
-  | Metric | Question Can Answer |
-  |--|--|
-  | County Population | "Do large/(/small) *geographical area* counties have high(/low) crime rates?"|
-  | County Area| "Do large/(/small) *population* counties have high(/low) crime rates?" |
-  | County Population Density | "Do *densely* populated counties -i.e. more urban areas have high(/low) crime rates?"|
-  |                           | "Do *lightly* populated counties -i.e. rural areas have high(/low) crime rates?"|
+| Metric | Question Can Answer |
+|--|--|
+| County Population | "Do large/(/small) *geographical area* counties have high(/low) crime rates?"|
+| County Area| "Do large/(/small) *population* counties have high(/low) crime rates?" |
+| County Population Density | "Do *densely* populated counties -i.e. more urban areas have high(/low) crime rates?"|
+|                           | "Do *lightly* populated counties -i.e. rural areas have high(/low) crime rates?"|
+
+Notes:
+
+- **The charts may take 5-15 seconds to load**: there is significant data.
 
 </xmp>
 <div class="container">
@@ -142,4 +141,10 @@
 
 
 <script src="strapdown.js"></script>
+
+<script>
+    document.write(bottomNav([['crmain.html', 'Overview'], ['stateBarCountyScatter.html','Combined State and County Summary'], ['countyBar.html','County Crime Exploration']]));
+// [['crmain.html','Overview'], ['stateBar.html','State Crime Overview'],['stateCrime.html','State Crime Details'],['stateBarCountyScatter.html','Combined State and County Summary'],['countyCrime.html','County Crime Overview'],['countyBar.html','County Crime Exploration']]
+</script>
+<div w3-include-html="footer.html"></div>
 

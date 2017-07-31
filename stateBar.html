@@ -35,18 +35,11 @@
     return out;
   }
 </script>
-<script>
-  document.write(bottomNav([['crmain.html', 'Home'], ['stateCrime.html', 'State Crime'], ['usMap.html', 'Country Map']]));
-</script>
-<div w3-include-html="footer.html"></div>
-
 <xmp theme="united" style="display:none;">
 
-  ## 2. State Level Crime.
+## 2. State Level Crime Overview
 
 Notes:
-
-  - The charts may take 5-15 seconds to load: there is significant data.
   - Lines have tooltips with State/County Info
 
 
@@ -84,15 +77,6 @@ Notes:
       "url": "data/combinedData2.json"
     },
     "layer": [{
-//      "selection": {
-//        "StateVar": {
-//          "type": "single",
-//           "fields": ["State"],
-//          "bind": {
-//            "input": "select", "options":["Alaska", "Alabama", "Arkansas"]
-//          },
-//        }
-//      },
           "width": 1024,
           "height": 650,
           "mark": "bar",
@@ -102,13 +86,8 @@ Notes:
               "field": "State_Crime_Rate",
               "type": "quantitative",
               "scale": {"type": "log"},
-//              "legend": false
             },
             "color": {
-//              "condition": {
-//                "selection": "StateVar",
-//                "field": "State_Crime_Rate", "type": "quantitative"
-//              },
               "field": "State_Crime_Rate",
              "type": "quantitative",
               "scale": {
@@ -119,7 +98,7 @@ Notes:
                   "#830300"
                 ]
               },
-              "legend": true//              "legend": true}
+              "legend": true
             }
           },
           "config": {
@@ -135,13 +114,12 @@ Notes:
     var tooltipOption = {
       showAllFields: false,
       fields: [
-        {field: "State", title: "State"},
-        {field: "County", title: "County"},
-        {field: "County_Area", title: "County Geographical Area"},
-        {field: "County_Population", title: "County Population"},
-        {field: "County_Population_Density", title: "County Population Density"},
-        {field: "County_Crime_Rate", title: "County Crime Rate"},
-        {field: "County_Total_Crimes", title: "County Total Crimes"}
+            {field: "State", title: "State"},
+            {field: "State_Area", title: "State Geographical Area"},
+            {field: "State_Population", title: "State Population"},
+            {field: "State_Population_Density", title: "State Population Density"},
+            {field: "State_Crime_Rate", title: "State Crime Rate"},
+            {field: "State_Total_Crimes", title: "State Total Crimes"}
       ]
     };
     vegaTooltip.vegaLite(result.view, countySpec, tooltipOption);
@@ -151,4 +129,9 @@ Notes:
 
 
 <script src="strapdown.js"></script>
+
+<script>
+  document.write(bottomNav([['crmain.html', 'Overview'], ['crmain.html', 'Overview'], ['stateCrime.html','State Crime Details']]));
+</script>
+<div w3-include-html="footer.html"></div>
 

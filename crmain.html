@@ -38,13 +38,6 @@ function bottomNav(arr) {
 }
 </script>
 
-<div w3-include-html="footer.html"></div>
-<script>
-    var out = bottomNav([['crmain.html', 'Home'], ['countyCrime.html', 'Prev'], ['stateCrime.html', 'Next']]);
-    document.write(out);
-</script>
-
-
 
     <xmp theme="united" style="display:none;">
 ##  1.0 Overview: Crime Rate vs Population by County in the United States (2012)
@@ -110,6 +103,14 @@ Overall the rural areas do fare better than urban ones. But the "Average" areas 
     </xmp>
 
 <script src="strapdown.js"></script>
+
+<div w3-include-html="footer.html"></div>
+<script>
+    var out = bottomNav([['', ''], ['', ''], ['stateCrime.html', 'Next']]);
+// [['crmain.html','Overview'], ['stateBar.html','State Crime Overview'],['stateCrime.html','State Crime Details'],['countyCrime.html','County Crime Overview'],['countyBar.html','County Crime Exploration']]
+    document.write(out);
+</script>
+
 
 
 

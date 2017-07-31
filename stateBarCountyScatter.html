@@ -42,7 +42,13 @@
 
 <xmp theme="united" style="display:none;">
 
-    ## 2. County Crime.
+## 4. Combined State and County Crime Rates View
+
+Notes:
+
+ - The County Level Scatterplot indicates some outliers of high crime rates in *both* rural (low population density) *and* urban areas (high population density).
+ - *Alaska* in particular has instances of very low population density counties with high crime rate (per ***capita*** *not* ***area***!)
+ - *St Louis City* is an opposite extreme: high crame rate in an urban environment
 
 </xmp>
 <div class="container">
@@ -77,19 +83,19 @@
         "data": {
             "url": "data/combinedData2.json"
         },
-        "transform": [
-            {"bin": {"maxbins":10}, "type": "quantitative", "field": "County_Population_Density", "as" : "County_Population_Density_Bin"},
-            {"bin": null , "field": "County_Crime_Rate", "as" : "County_Crime_Rate_Bin"},
-            {"bin": null , "field": "State_Population_Density", "as" : "State_Population_Density_Bin"},
-            {"bin": null , "field": "State_Crime_Rate", "as" : "State_Crime_Rate_Bin"},
-            {"calculate": "datum.County_Total_Crimes / datum.County_Population", "as" : "County_Crime_Rate_Calc"},
-            {"calculate": "datum.County_Total_Crimes / datum.County_Area", "as" : "County_Crime_Density"},
-            {"calculate": "datum.State_Total_Crimes / datum.State_Area", "as" : "State_Crime_Density"},
-            {"summarize": [
-                {"aggregate": "sum", "field": "County_Population", "as" : "State_Population_Calc"}
-                ]
-            }
-            ],
+        <!--"transform": [-->
+            <!--{"bin": {"maxbins":10}, "type": "quantitative", "field": "County_Population_Density", "as" : "County_Population_Density_Bin"},-->
+            <!--{"bin": null , "field": "County_Crime_Rate", "as" : "County_Crime_Rate_Bin"},-->
+            <!--{"bin": null , "field": "State_Population_Density", "as" : "State_Population_Density_Bin"},-->
+            <!--{"bin": null , "field": "State_Crime_Rate", "as" : "State_Crime_Rate_Bin"},-->
+            <!--{"calculate": "datum.County_Total_Crimes / datum.County_Population", "as" : "County_Crime_Rate_Calc"},-->
+            <!--{"calculate": "datum.County_Total_Crimes / datum.County_Area", "as" : "County_Crime_Density"},-->
+            <!--{"calculate": "datum.State_Total_Crimes / datum.State_Area", "as" : "State_Crime_Density"},-->
+            <!--{"summarize": [-->
+                <!--{"aggregate": "sum", "field": "County_Population", "as" : "State_Population_Calc"}-->
+                <!--]-->
+            <!--}-->
+            <!--],-->
         "vconcat" : [
             {
                 "selection": {
@@ -104,24 +110,6 @@
                     "x": {"field": "State", "type": "nominal", "legend": false},
                     "y": {"field": "State_Crime_Rate", "type": "quantitative", "scale": {"type": "log"}, "legend": false},
                     "color": {"field": "State", "type": "nominal", "legend": false},
-                },
-                "config": {
-                    "legend": false
-                }
-            },
-            {
-                "selection": {
-                    "brush": {
-                        "type": "multi"
-                    }
-                },
-                "width": 900,
-                "height": 300,
-                "mark": "point",
-                "encoding": {
-                    "x": {"field": "State", "type": "nominal", "legend": false},
-                    "y": {"bin": {"maxbins": "30"}, "field": "State_Crime_Rate", "as": "State_Crime_Rate", "type": "quantitative"},
-                    "color": {"field": "State_Crime_Rate_Bin", "type": "quantitative", "legend": false},
                 },
                 "config": {
                     "legend": false
@@ -154,6 +142,7 @@
             showAllFields: false,
             fields: [
                 {field: "State", title: "State"},
+                {field: "State_Crime_Rate", title: "State Crime Rate"},
                 {field: "County", title: "County"},
                 {field: "County_Area", title: "County Geographical Area"},
                 {field: "County_Population", title: "County Population"},

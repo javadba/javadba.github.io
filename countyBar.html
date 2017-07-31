@@ -35,19 +35,20 @@
     return out;
   }
 </script>
-<script>
-  document.write(bottomNav([['crmain.html', 'Home'], ['stateCrime.html', 'State Crime'], ['usMap.html', 'Country Map']]));
-</script>
 <div w3-include-html="footer.html"></div>
 
 <xmp theme="united" style="display:none;">
 
-  ## 5. County Level Crime.
+## 6. Exploration of County Level Crime Data by Filtering on State
 
 Notes:
 
-####  - ***Please click on the (blank) chart area: it is needed due to gltich in vega***
+####  -  ***Please click on the (blank) chart area: it is needed due to glitch in Vega***
+  - Choose a **state** from the dropdown list (**below the chart**) to explore corresponding County level info
+  - Due to a **bug in Vega-Lite** the State Selection actually *removes* the states' selection from display instead of showing it!
+  - I have notified vega-lite user's list.
   - Lines have tooltips with State/County Info
+  - Choose a state from the dropdown to explore corresponding County level info
 
 </xmp>
 <div class="container">
@@ -76,6 +77,11 @@ Notes:
     actions: false
   };
 
+  const states = ['Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii',
+        'Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota',
+        'Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina',
+        'North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas',
+        'Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
   const countySpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "Drag out a rectangular brush to highlight points.",
@@ -88,7 +94,7 @@ Notes:
           "type": "single",
            "fields": ["State"],
           "bind": {
-            "input": "select", "options":["Alaska", "Alabama", "Arkansas"]
+            "input": "select", "options": states
           },
         }
       },
@@ -104,7 +110,7 @@ Notes:
             "color": {
               "condition": {
                 "selection": "StateVar",
-                "field": "State_Crime_Rate", "type": "quantitative"
+                "field": "State", "type": "nominal"
               },
               "field": "County_Crime_Rate",
              "type": "quantitative",
@@ -116,6 +122,7 @@ Notes:
                   "#830300"
                 ]
               },
+              "value": null,
               "legend": true//              "legend": true}
             }
           },
@@ -125,7 +132,6 @@ Notes:
         },
       ]
     };
-
 
   vega.embed("#countyCrime", countySpec, opt, function (error, result) {
     console.log(error);
@@ -146,6 +152,10 @@ Notes:
 
 </script>
 
+<script>
+    document.write(bottomNav([['crmain.html', 'Overview'],['countyCrime.html', 'County Crime Overview'], ['','']]));
+// [['crmain.html','Overview'], ['stateBar.html','State Crime Overview'],['stateCrime.html','State Crime Details'],['stateBarCountyScatter.html','Combined State/County'],['countyCrime.html','County Crime Overview'],['countyBar.html','County Crime Exploration']])
+</script>
 
 <script src="strapdown.js"></script>
 
