@@ -3,10 +3,11 @@
 <script>
     w3.includeHTML();
 </script>
+
 <script>
     function bottomNav(arr) {
 
-        var out =
+        const out =
             `<div class="container">
         <div class="col-lg-2 text-left">
             <a href="${arr[0][0]}">
@@ -31,34 +32,34 @@
                 </button>
             </a>
         </div>
-    </div>`
+    </div>`;
         return out;
     }
 </script>
-<script>
-    document.write(bottomNav([['crmain.html', 'Home'], ['crmain.html', 'Main'], ['countyCrime.html', 'County Crime']]));
-</script>
-<div w3-include-html="footer.html"></div>
+<!-- Begin page content -->
 
-<xmp theme="united" style="display:none;">
 
-## 2. State Crime.
-
-We can consider the State Crime Rate and the State Total Crimes as a function of:
-
- | Metric | Question Can Answer |
- |-- |---|
- | State Population | "Do large/(/small) *geographical area* states have high(/low) crime rates?"|
- | State Area| "Do large/(/small) *population* states have high(/low) crime rates?"        |
- | State Population Density | "Do *densely* populated states -i.e. more urban areas have high(/low) crime rates?"|
- |                          | "Do *lightly* populated states -i.e. rural areas have high(/low) crime rates?"|
-
-</xmp>
 <div class="container">
-    <div class="container" id="vegaChart">
-        <div class="secondVis" id="stateCrime"></div>
+
+    <div class="page-header">
+        <h1>County Crime Rates</h1>
     </div>
-</div><!-- /.container -->
+
+    <p class="lead">County Crime Rates
+
+
+    <div class="container" id="vegaChart">
+
+        <div class="secondVis" id="countyCrime">
+
+        </div>
+    </div>
+
+    <script>
+        document.write(bottomNav([['crmain.html', 'Home'], ['stateCrime.html', 'State Crime'], ['exploration.html', 'Exploration']]));
+    </script>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -74,6 +75,7 @@ We can consider the State Crime Rate and the State Total Crimes as a function of
       href="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.css"></link>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.js"></script>
 
+//    const countySpec = "countyCrime.vl.json";
 <script>
     var opt = {
         mode: "vega-lite",
@@ -81,62 +83,55 @@ We can consider the State Crime Rate and the State Total Crimes as a function of
     };
     //      var opts = {"actions": false};
 
-    //    const stateSpec = "stateCrime.vl.json";
-    const stateSpec = {
+    //    const countySpec = "countyCrime.vl.json";
+    const countySpec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
         "description": "Drag out a rectangular brush to highlight points.",
         "repeat": {
-            "row": ["State_Crime_Rate", "State_Total_Crimes"],
-            "column": ["State_Population", "State_Area", "State_Population_Density"]
+            "row": ["county_area", "county_pop", "county_pop_density"],
+            "column": ["county_crime_rate", "county_total_crimes"]
         },
         "spec": {
             "data": {
-                "url": "data/combinedData2.json"
+                "url": "data/combinedData.json"
             },
             "selection": {
                 "brush": {
                     "type": "interval"
                 }
             },
-            "width": 350,
-            "height": 350,
             "mark": "point",
             "encoding": {
                 "x": {
                     "field": {"repeat": "row"},
-                    "type": "quantitative",
-                    "scale": {"type": "log"}
-                  },
+                    "type": "quantitative"
+                },
                 "y": {
                     "field": {"repeat": "column"},
-                    "type": "quantitative",
-                      "scale": {"type": "log"}
+                    "type": "quantitative"
                 }
 
             }
         }
     };
 
-    //    vega.embed('#stateCrime', stateSpec, opts);
+    //    vega.embed('#countyCrime', countySpec, opts);
 
-    vega.embed("#stateCrime", stateSpec, opt, function (error, result) {
+    vega.embed("#countyCrime", countySpec, opt, function (error, result) {
         console.log(error);
         var tooltipOption = {
             showAllFields: false,
             fields: [
-            {field: "State", title: "State"},
-            {field: "State_Area", title: "State Geographical Area"},
-            {field: "State_Population", title: "State Population"},
-            {field: "State_Population_Density", title: "State Population Density"},
-            {field: "State_Crime_Rate", title: "State Crime Rate"},
-            {field: "State_Total_Crimes", title: "State Total Crimes"}
+                {field: "county_area", title: "County Geographical Area"},
+                {field: "county_pop", title: "County Population"},
+                {field: "county_pop_density", title: "County Population Density"},
+                {field: "county_crime_rate", title: "County Crime Rate"},
+                {field: "county_total_crimes", title: "County Total Crimes"}
             ]
         };
-        vegaTooltip.vegaLite(result.view, stateSpec, tooltipOption);
+        vegaTooltip.vegaLite(result.view, countySpec, tooltipOption);
     });
 
 </script>
 
-
-<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
-
+<div w3-include-html="footer.html"></div>

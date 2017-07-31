@@ -42,17 +42,7 @@
 
 <xmp theme="united" style="display:none;">
 
-
-  ## 2. County Crime.
-
-  We can consider the County Crime Rate and the County Total Crimes as a function of:
-
-  | Metric | Question Can Answer |
-  |--|--|
-  | County Population | "Do large/(/small) *geographical area* counties have high(/low) crime rates?"|
-  | County Area| "Do large/(/small) *population* counties have high(/low) crime rates?" |
-  | County Population Density | "Do *densely* populated counties -i.e. more urban areas have high(/low) crime rates?"|
-  |                           | "Do *lightly* populated counties -i.e. rural areas have high(/low) crime rates?"|
+    ## 2. County Crime.
 
 </xmp>
 <div class="container">
@@ -69,9 +59,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
 <meta charset="utf-8">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.3/vega-lite.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-beta.31/vega.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.14/vega-embed.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.3/vega-lite.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-beta.31/vega.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.14/vega-embed.js"></script>
 <link rel="stylesheet" type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.css"></link>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.js"></script>
@@ -80,49 +70,86 @@
         mode: "vega-lite",
         actions: false
     };
+
     const countySpec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
         "description": "Drag out a rectangular brush to highlight points.",
-        "repeat": {
-            "row": ["County_Crime_Rate", "County_Total_Crimes"],
-            "column": ["County_Population", "County_Area", "County_Population_Density"]
+        "data": {
+            "url": "data/combinedData2.json"
         },
-        "spec": {
-            "data": {
-                "url": "data/combinedData2.json"
-            },
-
-            "selection": {
-                "brush": {
-                    "type": "multi"
-                }
-            },
-            "width": 350,
-            "height": 350,
-            "mark": "point",
-            "encoding": {
-                "x": {
-                    "field": {"repeat": "row"},
-                    "type": "quantitative",
-                    "scale": {"type": "log"}
-                },
-                "y": {
-                    "field": {"repeat": "column"},
-                    "type": "quantitative",
-                    "scale": {"type": "log"}
-                }
-
+        "transform": [
+            {"bin": {"maxbins":10}, "type": "quantitative", "field": "County_Population_Density", "as" : "County_Population_Density_Bin"},
+            {"bin": null , "field": "County_Crime_Rate", "as" : "County_Crime_Rate_Bin"},
+            {"bin": null , "field": "State_Population_Density", "as" : "State_Population_Density_Bin"},
+            {"bin": null , "field": "State_Crime_Rate", "as" : "State_Crime_Rate_Bin"},
+            {"calculate": "datum.County_Total_Crimes / datum.County_Population", "as" : "County_Crime_Rate_Calc"},
+            {"calculate": "datum.County_Total_Crimes / datum.County_Area", "as" : "County_Crime_Density"},
+            {"calculate": "datum.State_Total_Crimes / datum.State_Area", "as" : "State_Crime_Density"},
+            {"summarize": [
+                {"aggregate": "sum", "field": "County_Population", "as" : "State_Population_Calc"}
+                ]
             }
-        }
-    }
-    console.log(typeof countySpec);
+            ],
+        "vconcat" : [
+            {
+                "selection": {
+                    "brush": {
+                        "type": "multi"
+                    }
+                },
+                "width": 900,
+                "height": 300,
+                "mark": "bar",
+                "encoding": {
+                    "x": {"field": "State", "type": "nominal", "legend": false},
+                    "y": {"field": "State_Crime_Rate", "type": "quantitative", "scale": {"type": "log"}, "legend": false},
+                    "color": {"field": "State", "type": "nominal", "legend": false},
+                },
+                "config": {
+                    "legend": false
+                }
+            },
+            {
+                "selection": {
+                    "brush": {
+                        "type": "multi"
+                    }
+                },
+                "width": 900,
+                "height": 300,
+                "mark": "point",
+                "encoding": {
+                    "x": {"field": "State", "type": "nominal", "legend": false},
+                    "y": {"bin": {"maxbins": "30"}, "field": "State_Crime_Rate", "as": "State_Crime_Rate", "type": "quantitative"},
+                    "color": {"field": "State_Crime_Rate_Bin", "type": "quantitative", "legend": false},
+                },
+                "config": {
+                    "legend": false
+                }
+            },
+            {
+                "selection": {
+                    "brush": {
+                        "type": "multi"
+                    }
+                },
+                "width": 900,
+                "height": 300,
+                "mark": "point",
+                "encoding": {
+                    "x": {"field": "County_Population_Density", "type": "quantitative", "scale": {"type": "log"}},
+                    "y": {"field": "County_Crime_Rate", "type": "quantitative", "scale": {"type": "log"}},
+                    "color": {"field": "State", "type": "nominal"}
+//                    "tooltip": {"field": "County", "type": "nominal"}
+                }
+            }
+            ]
+
+    };
+
 
     vega.embed("#countyCrime", countySpec, opt, function (error, result) {
-//        if ("undefined" === typeof error) {
-//            console.log("error is undefined");
-//        } else {
-//            console.log(error);
-//        }
+        console.log(error);
         var tooltipOption = {
             showAllFields: false,
             fields: [
