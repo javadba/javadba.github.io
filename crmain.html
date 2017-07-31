@@ -6,49 +6,56 @@
 </script>
 
 <script>
-function bottomNav(arr) {
+    function bottomNav(arr) {
 
-    var out =
-        `<div class="container">
-        <div class="col-lg-2 text-left">
-            <a href="${arr[0][0]}">
-                <button type="button" class="btn btn-default btn-small btn-success">
-                    ${arr[0][1]}<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                </button>
-            </a>
+        var out =
+            `<div class="container">
+    <div class="col-lg-2 text-left">
+        <a href="${arr[0][0]}">
+            <button type="button" class="btn btn-default btn-xs btn-basic">
+                ${arr[0][1]}<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            </button>
+        </a>
 
-        </div>
-        <div class="col-lg-8 text-center">
-            <a href="${arr[1][0]}">
-                <button type="button" class="btn btn-default btn-small btn-success">
-                    ${arr[1][1]}<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                </button>
-            </a>
-        </div>
+    </div>
+    <div class="col-lg-8 text-center">
+        <a href="${arr[1][0]}">
+            <button type="button" class="btn btn-default btn-xs btn-basic">
+                ${arr[1][1]}<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            </button>
+        </a>
+    </div>
 
-        <div class="col-lg-2 text-right">
-            <a href="${arr[2][0]}">
-                <button type="button" class="btn btn-default btn-small btn-success">
-                    ${arr[2][1]}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                </button>
-            </a>
-        </div>
-    </div>`
-    return out;
-}
+    <div class="col-lg-2 text-right">
+        <a href="${arr[2][0]}">
+            <button type="button" class="btn btn-default btn-xs btn-basic">
+                ${arr[2][1]}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </button>
+        </a>
+    </div>
+</div>`;
+        return out;
+    }
+</script>
+
+<div w3-include-html="footer.html"></div>
+<script>
+    var out = bottomNav([['', ''], ['', ''], ['stateCrime.html', 'Next']]);
+// [['crmain.html','Overview'], ['stateBar.html','State Crime Overview'],['stateCrime.html','State Crime Details'],['countyCrime.html','County Crime Overview'],['countyBar.html','County Crime Exploration']]
+    document.write(out);
 </script>
 
 
     <xmp theme="united" style="display:none;">
-##  1.0 Overview: Crime Rate vs Population by County in the United States (2012)
+###  1.0 Overview: Crime Rate vs Population by County in the United States (2012)
 
-### Problem Statement and Question Asked
+#### Problem Statement and Question Asked
 
 The FBI compiles annual county level crime statistics bucketed into 45 categories
 
 This workbook explores the relationship between Total Violent Crimes - defined as the sum of Murder, Rape, Robbery, and Aggravated Assault - and the County Population.  The intuition we seek is: "Does a higher population density lead to a higher per-capita crime rate? And also "Which population centers have achieved a relatively lower per-capita crime rate?
 
-### Approach
+#### Approach
 
 
 We direct the exploration through a sequence State -> County -> Free Form investigation i.e. a Martini approach.
@@ -60,7 +67,7 @@ We direct the exploration through a sequence State -> County -> Free Form invest
  | U.S. Level | We then zoom out and allow user to *explore for themselves* at a national level. |
 
 
-### Data Preparation:
+#### Data Preparation:
 
 The FBI data may be accessed (after agreeing to various terms of use) at https://www.ojjdp.gov/ojstatbb/ezaucr/asp/methods.asp  and http://www.icpsr.umich.edu/cgi-bin/terms .  The data itself is incomplete: not all counties - or even all states - have provided data to support the FBI's report.  When the Total Crimes reported for a county are Zero then the data is excluded from analysis and the County is grayed out.
 
@@ -88,15 +95,15 @@ The data was processed by using pandasql to achieve:
         - State Crime Rate by population (total crime / population)
         - State Crime Rate by area (total crime / area)
 
-### Chart Preparation
+#### Chart Preparation
 
 The Crime Data was matched with existing US County Map by the FIS State/County codes.
 
-### Results and Analysis
+#### Results and Analysis
 
 Having prior knowledge of the general trends I was expecting to see a higher crime rate in the SouthEast and lower in the Upper Midwest, Plains States, and upper NorthEast.  In addition New York City is well known for its sterling crime record whereas Chicago, Saint Louis, and New Orleans have the opposite reputation.  The results do corroborate those "apriori" known facts.
 
-### Some additional observations:
+#### Some additional observations:
 
 Overall the rural areas do fare better than urban ones. But the "Average" areas tend to have the best of the three categories
 
@@ -104,12 +111,6 @@ Overall the rural areas do fare better than urban ones. But the "Average" areas 
 
 <script src="strapdown.js"></script>
 
-<div w3-include-html="footer.html"></div>
-<script>
-    var out = bottomNav([['', ''], ['', ''], ['stateCrime.html', 'Next']]);
-// [['crmain.html','Overview'], ['stateBar.html','State Crime Overview'],['stateCrime.html','State Crime Details'],['countyCrime.html','County Crime Overview'],['countyBar.html','County Crime Exploration']]
-    document.write(out);
-</script>
 
 
 

@@ -10,7 +10,7 @@
       `<div class="container">
         <div class="col-lg-2 text-left">
             <a href="${arr[0][0]}">
-                <button type="button" class="btn btn-default btn-small btn-success">
+                <button type="button" class="btn btn-default btn-xs btn-default">
                     ${arr[0][1]}<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                 </button>
             </a>
@@ -18,7 +18,7 @@
         </div>
         <div class="col-lg-8 text-center">
             <a href="${arr[1][0]}">
-                <button type="button" class="btn btn-default btn-small btn-success">
+                <button type="button" class="btn btn-default btn-xs btn-default">
                     ${arr[1][1]}<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 </button>
             </a>
@@ -26,7 +26,7 @@
 
         <div class="col-lg-2 text-right">
             <a href="${arr[2][0]}">
-                <button type="button" class="btn btn-default btn-small btn-success">
+                <button type="button" class="btn btn-default btn-xs btn-default">
                     ${arr[2][1]}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 </button>
             </a>
@@ -35,11 +35,17 @@
     return out;
   }
 </script>
+
+<script>
+    document.write(bottomNav([['crmain.html', 'Overview'],['countyCrime.html', 'County Crime Overview'], ['','']]));
+// [['crmain.html','Overview'], ['stateBar.html','State Crime Overview'],['stateCrime.html','State Crime Details'],['stateBarCountyScatter.html','Combined State/County'],['countyCrime.html','County Crime Overview'],['countyBar.html','County Crime Exploration']])
+</script>
+
 <div w3-include-html="footer.html"></div>
 
 <xmp theme="united" style="display:none;">
 
-## 6. Exploration of County Level Crime Data by Filtering on State
+### 6. Exploration of County Level Crime Data by Filtering on State
 
 Notes:
 
@@ -150,11 +156,6 @@ Notes:
     vegaTooltip.vegaLite(result.view, countySpec, tooltipOption);
   });
 
-</script>
-
-<script>
-    document.write(bottomNav([['crmain.html', 'Overview'],['countyCrime.html', 'County Crime Overview'], ['','']]));
-// [['crmain.html','Overview'], ['stateBar.html','State Crime Overview'],['stateCrime.html','State Crime Details'],['stateBarCountyScatter.html','Combined State/County'],['countyCrime.html','County Crime Overview'],['countyBar.html','County Crime Exploration']])
 </script>
 
 <script src="strapdown.js"></script>
