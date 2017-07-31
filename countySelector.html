@@ -81,64 +81,24 @@
       "selection": {
         "StateVar": {
           "type": "single",
-           "fields": ["State"],
+          "fields": ["State"],
           "bind": {
-            "input": "select", "options":["Alaska", "Alabama", "Arkansas"]
+            "input": "select", "options": ["Alaska", "Alabama", "Arkansas"]
           },
         }
-      },
-//      "vconcat": [
-//        {
-//          "transform": [{"filter": {"selection": "StateVar"}}],
-//          "selection": {
-//            "brush": {
-//              "type": "multi"
-//            }
-//          },
+      }
+    },
+        {
+          "transform": [{"filter": {"selection": "StateVar"}}],
           "width": 400,
           "height": 400,
-          "mark": "bar",
+          "mark": "point",
           "encoding": {
-            "x": {"field": "State", "type": "nominal" /*, "legend": false */},
-            "y": {
-              "field": "State_Crime_Rate",
-              "type": "quantitative",
-              "scale": {"type": "log"},
-//              "legend": false
-            },
-            "color": {
-//              "condition": {
-//                "selection": "StateVar",
-//                "field": "State_Crime_Rate", "type": "quantitative"
-//              },
-              "field": "State_Crime_Rate",
-             "type": "quantitative",
-              "scale": {
-                "nice": true,
-                "zero": true,
-                "range": [
-                  "#eee",
-                  "#1f77b4"
-                ]
-              },
-              "legend": true//              "legend": true}
-            }
-          },
-          "config": {
-            "legend": {"gradientStrokeColor" : "red"}
+            "x": {"field": "County_Population_Density", "type": "quantitative", "scale": {"type": "log"}},
+            "y": {"field": "County_Crime_Rate", "type": "quantitative", "scale": {"type": "log"}},
+            "color": {"field": "State", "type": "nominal"}
           }
-        },
-//        {
-//          "transform": [{"filter": {"selection": "StateVar"}}],
-//          "width": 400,
-//          "height": 400,
-//          "mark": "point",
-//          "encoding": {
-//            "x": {"field": "County_Population_Density", "type": "quantitative", "scale": {"type": "log"}},
-//            "y": {"field": "County_Crime_Rate", "type": "quantitative", "scale": {"type": "log"}},
-//            "color": {"field": "State", "type": "nominal"}
-//          }
-//        }
+        }
       ]
     };
 
@@ -163,5 +123,5 @@
 </script>
 
 
-<script src="strapdown.js"></script>
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
 
